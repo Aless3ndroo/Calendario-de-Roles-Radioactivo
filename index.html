@@ -536,11 +536,12 @@
 
                 var btnClase = clase.esCulto ? "square-btn is-culto" : "square-btn";
 
-                var leccionContenido = clase.leccion;
+               var leccionContenido = clase.leccion;
 if (clase.pagina_pdf) {
-    // Usamos el enlace de vista previa directa de Google Drive compatible con móviles
-    var enlaceUniversal = "https://drive.google.com/file/d/1sWL_l3hAeDbHmNf6cjJwBroF20n2wZ6F/preview#page=" + clase.pagina_pdf;
-    leccionContenido = "<a href='" + enlaceUniversal + "' target='_blank' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
+    // Usar el visor en la nube para forzar la página exacta en iPhone y Android
+    var pdfUrl = "https://aless3ndroo.github.io/Calendario-de-Roles-Radioactivo/Calses%20de%20RA_compressed.pdf";
+    var visorUrl = "https://docs.google.com/viewer?url=" + encodeURIComponent(pdfUrl) + "&embedded=true#page=" + clase.pagina_pdf;
+    leccionContenido = "<a href='" + visorUrl + "' target='_blank' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
 }
 
                 fila.innerHTML = 
