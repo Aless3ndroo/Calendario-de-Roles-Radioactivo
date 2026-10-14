@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rol de clases Radioactivo</title>
+    <style>
+        :root {
+            --bg-body: #000000;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --text-muted: #555555;
+            --border-color: #000000;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 15px 10px; 
+            line-height: 1.5;
+        }
+
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+
+        .header-card {
+            background: var(--bg-card);
+            padding: 20px 15px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Contenedor del logo hecho con código */
+        .logo-adorno {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 10px auto;
+            background-color: #000000;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+        }
+
+        h1 { 
+            margin: 0 0 15px 0; 
+            color: #000000; 
+            font-size: 1.4rem; 
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 900;
+        }
+
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            border-top: 2px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        select { 
+            padding: 12px; 
+            font-size: 14px; 
+            border: 2px solid var(--border-color); 
+            border-radius: 6px; 
+            outline: none; 
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #000000;
+            font-weight: bold;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .checkbox-group { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 14px; 
+            cursor: pointer;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        .checkbox-group input { 
+            width: 20px; 
+            height: 20px; 
+            cursor: pointer; 
+            accent-color: #000000;
+        }
+
+        /* Acordeones */
+        details {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px;
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #000000;
+            cursor: pointer;
+            list-style: none;
+            text-transform: uppercase;
+            background-color: #f2f2f2;
+            border-bottom: 2px solid transparent;
+        }
+        
+        details[open] summary {
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        summary::-webkit-details-marker { display: none; }
+        
+        .summary-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            display: inline-block;
+        }
+
+        details[open] .arrow {
+            transform: rotate(180deg);
+        }
+
+        .month-body {
+            padding: 0;
+        }
+
+        /* Filas de clases */
+        .class-row {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 12px;
+        }
+
+        .class-row:last-child { border-bottom: none; }
+        .class-row.pasada { opacity: 0.5; background: #f9f9f9; }
+
+        /* Botón de Culto */
+        .square-btn {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            border: 2px solid #000000;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 80%; /* Ajuste del logo incrustado */
+        }
+
+        /* Logo convertido a código incrustado para los botones de Culto */
+        .square-btn.is-culto {
+            background-color: #000000;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,10 85,30 85,70 50,90 15,70 15,30' fill='none' stroke='white' stroke-width='5' stroke-linejoin='round'/><polygon points='50,10 95,50 50,90 5,50' fill='none' stroke='white' stroke-width='5' stroke-linejoin='round'/></svg>");
+            border-color: #000000;
+        }
+
+        .info-col {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .date-title {
+            font-weight: 900;
+            font-size: 1rem;
+            color: #000000;
+        }
+
+        .lesson-text { 
+            font-size: 0.8rem; 
+            color: var(--text-muted); 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        .lesson-text a:hover {
+            color: #000000;
+        }
+
+        .team-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-align: center;
+            text-transform: uppercase;
+            border: 2px solid #000000;
+            background: #ffffff;
+            color: #000000;
+            min-width: 90px;
+        }
+
+        .equipo-culto { 
+            background: #000000; 
+            color: #ffffff; 
+        }
+
+        .no-data { text-align: center; padding: 30px; font-weight: bold; color: #555555; }
+
+        @media (min-width: 501px) {
+            .filters {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .class-row { 
+                flex-wrap: wrap; 
+                position: relative;
+            }
+            .info-col {
+                width: calc(100% - 60px);
+            }
+            .team-badge { 
+                width: 100%; 
+                margin-top: 8px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-card">
+        <!-- Logo incrustado directamente con vectores (SVG) -->
+        <div class="logo-adorno">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+                <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
+                <polygon points="50,10 95,50 50,90 5,50" fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <h1>Rol de clases Radioactivo</h1>
+        <div class="filters">
+            <select id="equipoSelect">
+                <option value="Todos">Todos los equipos</option>
+                <option value="Dany y Keila">Dany y Keila</option>
+                <option value="Juan Carlos y Alex">Juan Carlos y Alex</option>
+                <option value="Carlos y Xime">Carlos y Xime</option>
+                <option value="Sara J y Sara V">Sara J y Sara V (Culto)</option>
+            </select>
+            <label class="checkbox-group">
+                <input type="checkbox" id="mostrarPasadas" checked>
+                Mostrar meses anteriores
+            </label>
+        </div>
+    </div>
+
+    <div id="calendarContainer">
+        <!-- Acordeones inyectados por JavaScript -->
+    </div>
+</div>
+
+<script>
+    var datosRaw = [
+        {"fecha": "2026-09-20", "leccion": "Semana 4", "equipo_fijo": "Dany y Keila"},
+        {"fecha": "2026-09-27", "leccion": "Semana 5", "equipo_fijo": "Juan Carlos y Alex"},
+        {"fecha": "2026-10-04", "leccion": "Aniversario", "equipo_fijo": "Carlos y Xime"},
+        {"fecha": "2026-10-11", "leccion": "Semana 6", "equipo_fijo": "Sara J y Sara V", "es_culto_fijo": true},
+        {"fecha": "2026-10-18", "leccion": "¿Quién hizo todo tan perfecto?", "equipo_fijo": "Carlos y Xime", "pagina_pdf": 1},
+        {"fecha": "2026-10-25", "leccion": "Especial de dia de muertos", "equipo_fijo": "Dany y Keila"},
+        {"fecha": "2026-11-01", "leccion": "¿Por qué es importante la creación?", "pagina_pdf": 2},
+        {"fecha": "2026-11-08", "leccion": "Dios es mi padre", "pagina_pdf": 3},
+        {"fecha": "2026-11-15", "leccion": "¿Cómo comenzó todo?", "pagina_pdf": 4},
+        {"fecha": "2026-11-22", "leccion": "¿Por qué Dios creó el mundo?", "pagina_pdf": 5},
+        {"fecha": "2026-11-29", "leccion": "¿Qué significa ser humano?", "pagina_pdf": 6},
+        {"fecha": "2026-12-06", "leccion": "¿Ciencia y Biblia se contradicen?", "pagina_pdf": 7},
+        {"fecha": "2026-12-13", "leccion": "¿Por qué Dios hizo los animales?", "pagina_pdf": 8},
+        {"fecha": "2026-12-20", "leccion": "Navidad"},
+        {"fecha": "2026-12-27", "leccion": "¿El mundo tiene propósito?", "pagina_pdf": 9},
+        {"fecha": "2027-01-03", "leccion": "¿Por qué hay dolor en el mundo?", "pagina_pdf": 10},
+        {"fecha": "2027-01-10", "leccion": "¿Dios cuida su creación hoy?", "pagina_pdf": 11},
+        {"fecha": "2027-01-17", "leccion": "¿Habrá un mundo mejor algún día?", "pagina_pdf": 12},
+        {"fecha": "2027-01-24", "leccion": "El arca de Noé", "pagina_pdf": 13},
+        {"fecha": "2027-01-31", "leccion": "¿Qué es el Evangelio?", "pagina_pdf": 14},
+        {"fecha": "2027-02-07", "leccion": "¿Cómo puedo tener una relación personal con Dios?", "pagina_pdf": 15},
+        {"fecha": "2027-02-14", "leccion": "La historia de la vida de Jesús", "pagina_pdf": 16},
+        {"fecha": "2027-02-21", "leccion": "Dia del amigo"},
+        {"fecha": "2027-02-28", "leccion": "Los milagros de Jesús", "pagina_pdf": 17},
+        {"fecha": "2027-03-07", "leccion": "Las 7 plagas de Egipto", "pagina_pdf": 18},
+        {"fecha": "2027-03-14", "leccion": "¿Qué enseñó Jesús con sus parábolas?", "pagina_pdf": 19},
+        {"fecha": "2027-03-21", "leccion": "La oración de Jesús", "pagina_pdf": 20},
+        {"fecha": "2027-03-28", "leccion": "Domingo de ramos"},
+        {"fecha": "2027-04-04", "leccion": "La enseñanza de Jesús", "pagina_pdf": 21},
+        {"fecha": "2027-04-11", "leccion": "La muerte y resurección de Jesús", "pagina_pdf": 22},
+        {"fecha": "2027-04-18", "leccion": "¿Qué es el Evangelio?", "pagina_pdf": 23},
+        {"fecha": "2027-04-25", "leccion": "¿Seguir a Jesús cambia la vida?", "pagina_pdf": 24},
+        {"fecha": "2027-05-02", "leccion": "¿Qué es el pecado?", "pagina_pdf": 25},
+        {"fecha": "2027-05-09", "leccion": "¿De dónde vino el pecado?", "pagina_pdf": 26},
+        {"fecha": "2027-05-16", "leccion": "¿Qué es la gracia?", "pagina_pdf": 27},
+        {"fecha": "2027-05-23", "leccion": "¿Qué significa arrepentirse?", "pagina_pdf": 28},
+        {"fecha": "2027-05-30", "leccion": "¿Qué es el infierno?", "pagina_pdf": 29},
+        {"fecha": "2027-06-06", "leccion": "¿Se puede perder la salvación?", "pagina_pdf": 30},
+        {"fecha": "2027-06-13", "leccion": "¿Qué pasa con quien nunca escuchó de Jesús?", "pagina_pdf": 31},
+        {"fecha": "2027-06-20", "leccion": "¿Qué es la oración?", "pagina_pdf": 32},
+        {"fecha": "2027-06-27", "leccion": "¿Por qué Dios no siempre responde como quiero?", "pagina_pdf": 33},
+        {"fecha": "2027-07-04", "leccion": "¿Quién es el Espíritu Santo?", "pagina_pdf": 34},
+        {"fecha": "2027-07-11", "leccion": "¿Cómo sé si soy salvo?", "pagina_pdf": 35},
+        {"fecha": "2027-07-18", "leccion": "¿Qué son los dones espirituales?", "pagina_pdf": 36},
+        {"fecha": "2027-07-25", "leccion": "¿Qué es la adoración?", "pagina_pdf": 37},
+        {"fecha": "2027-08-01", "leccion": "¿Qué es la iglesia?", "pagina_pdf": 38},
+        {"fecha": "2027-08-08", "leccion": "¿Cómo leer la biblia?", "pagina_pdf": 39},
+        {"fecha": "2027-08-15", "leccion": "¿Cómo perdonar cuando duele?", "pagina_pdf": 40},
+        {"fecha": "2027-08-22", "leccion": "¿Cómo vivir la fe en el colegio?", "pagina_pdf": 41},
+        {"fecha": "2027-08-29", "leccion": "¿Cómo manejar las redes sociales?", "pagina_pdf": 42},
+        {"fecha": "2027-09-05", "leccion": "¿Cómo manejar el miedo y la ansiedad?", "pagina_pdf": 43},
+        {"fecha": "2027-09-12", "leccion": "¿Cómo servir a otros?", "pagina_pdf": 44},
+        {"fecha": "2027-09-19", "leccion": "¿Por qué hay tantas religiones?", "pagina_pdf": 45},
+        {"fecha": "2027-09-26", "leccion": "Una fe que dura toda la vida", "pagina_pdf": 46}
+    ];
+
+    var datosCalculados = [];
+    var container = document.getElementById("calendarContainer");
+    var selectEquipo = document.getElementById("equipoSelect");
+    var checkboxPasadas = document.getElementById("mostrarPasadas");
+
+    var equiposRegulares = [
+        { nombre: "Juan Carlos y Alex" },
+        { nombre: "Carlos y Xime" },       
+        { nombre: "Dany y Keila" } 
+    ];
+    var equipoCulto = { nombre: "Sara J y Sara V", claseCss: "equipo-culto" };
+
+    var fixedCultoDates = [];
+    var forbiddenCultoDates = [];
+
+    var nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    var diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+    function inicializarEstructura() {
+        datosCalculados = [];
+        for (var i = 0; i < datosRaw.length; i++) {
+            datosCalculados.push({
+                fecha: datosRaw[i].fecha,
+                leccion: datosRaw[i].leccion,
+                equipo_fijo: datosRaw[i].equipo_fijo || "",
+                es_culto_fijo: datosRaw[i].es_culto_fijo || false,
+                pagina_pdf: datosRaw[i].pagina_pdf || null
+            });
+        }
+        recalcularTodo();
+    }
+
+    window.toggleCulto = function(fecha) {
+        var isFixed = fixedCultoDates.indexOf(fecha);
+        var isForbidden = forbiddenCultoDates.indexOf(fecha);
+
+        var claseIndex = -1;
+        for (var i = 0; i < datosCalculados.length; i++) {
+            if (datosCalculados[i].fecha === fecha) {
+                claseIndex = i;
+                break;
+            }
+        }
+        if (claseIndex === -1) return;
+
+        var clase = datosCalculados[claseIndex];
+
+        if (clase.esCulto) {
+            if (isFixed > -1) fixedCultoDates.splice(isFixed, 1);
+            if (isForbidden === -1) forbiddenCultoDates.push(fecha);
+        } else {
+            if (isForbidden > -1) forbiddenCultoDates.splice(isForbidden, 1);
+            if (isFixed === -1) fixedCultoDates.push(fecha);
+        }
+        recalcularTodo();
+    };
+
+    function recalcularTodo() {
+        var nextTeamIdx = 0;
+        var classesSinceLastCulto = 0;
+        var initDynamic = false;
+
+        for (var i = 0; i < datosCalculados.length; i++) {
+            var d = datosCalculados[i];
+            
+            if (d.fecha < "2026-11-01") {
+                d.equipo = d.equipo_fijo;
+                d.esCulto = d.es_culto_fijo || false;
+                
+                if (fixedCultoDates.indexOf(d.fecha) > -1) {
+                    d.esCulto = true;
+                    d.equipo = equipoCulto.nombre;
+                } else if (forbiddenCultoDates.indexOf(d.fecha) > -1) {
+                    d.esCulto = false;
+                    d.equipo = d.equipo_fijo; 
+                }
+                
+                d.claseCss = d.esCulto ? "equipo-culto" : "equipo-normal";
+                continue;
+            }
+
+            if (d.fecha === "2026-11-01" && !initDynamic) {
+                initDynamic = true;
+                nextTeamIdx = 0; 
+                classesSinceLastCulto = 3; 
+            }
+
+            var isCulto = false;
+
+            if (fixedCultoDates.indexOf(d.fecha) > -1) {
+                isCulto = true;
+            } else if (forbiddenCultoDates.indexOf(d.fecha) > -1) {
+                isCulto = false;
+            } else {
+                if (classesSinceLastCulto >= 3) {
+                    isCulto = true;
+                }
+            }
+
+            if (isCulto) {
+                d.equipo = equipoCulto.nombre;
+                d.claseCss = equipoCulto.claseCss;
+                d.esCulto = true;
+                classesSinceLastCulto = 0;
+            } else {
+                d.equipo = equiposRegulares[nextTeamIdx].nombre;
+                d.claseCss = "equipo-normal";
+                d.esCulto = false;
+                
+                nextTeamIdx = (nextTeamIdx + 1) % 3;
+                classesSinceLastCulto++;
+            }
+        }
+        renderizarCalendario();
+    }
+
+    function renderizarCalendario() {
+        container.innerHTML = "";
+        var equipoFiltro = selectEquipo.value;
+        var mostrarPasadas = checkboxPasadas.checked;
+        
+        var hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        var agrupadosPorMes = {};
+        var llavesMeses = [];
+
+        for (var i = 0; i < datosCalculados.length; i++) {
+            var d = datosCalculados[i];
+            if (equipoFiltro !== "Todos" && d.equipo !== equipoFiltro) continue;
+
+            var partesFecha = d.fecha.split("-");
+            var year = parseInt(partesFecha[0], 10);
+            var month = parseInt(partesFecha[1], 10) - 1;
+            var day = parseInt(partesFecha[2], 10);
+            
+            var fechaClase = new Date(year, month, day);
+            var esPasada = fechaClase < hoy;
+
+            if (esPasada && !mostrarPasadas) continue;
+
+            var mesAnioStr = nombresMeses[month] + " " + year;
+            var diaNomb = diasSemana[fechaClase.getDay()];
+            
+            var fechaCompleta = diaNomb + ", " + day + " de " + nombresMeses[month] + " de " + year;
+            
+            if (!agrupadosPorMes[mesAnioStr]) {
+                agrupadosPorMes[mesAnioStr] = [];
+                llavesMeses.push(mesAnioStr);
+            }
+            
+            agrupadosPorMes[mesAnioStr].push({
+                fecha: d.fecha,
+                fechaFormato: fechaCompleta,
+                leccion: d.leccion,
+                equipo: d.equipo,
+                claseCss: d.claseCss,
+                esCulto: d.esCulto,
+                esPasada: esPasada,
+                pagina_pdf: d.pagina_pdf
+            });
+        }
+
+        if (llavesMeses.length === 0) {
+            container.innerHTML = "<div class='no-data'>No hay clases para mostrar.</div>";
+            return;
+        }
+
+        for (var m = 0; m < llavesMeses.length; m++) {
+            var mesNombre = llavesMeses[m];
+            var clasesMes = agrupadosPorMes[mesNombre];
+            
+            var details = document.createElement("details");
+            details.open = true;
+
+            var summary = document.createElement("summary");
+            summary.innerHTML = 
+                "<div class='summary-content'>" +
+                    "<div><span>" + mesNombre + "</span> <span style='font-size: 0.8em; font-weight: normal; color: #777; margin-left: 10px;'>" + clasesMes.length + " CLASES</span></div>" +
+                    "<span class='arrow'>▼</span>" +
+                "</div>";
+            
+            var monthBody = document.createElement("div");
+            monthBody.className = "month-body";
+
+            for (var c = 0; c < clasesMes.length; c++) {
+                var clase = clasesMes[c];
+                var fila = document.createElement("div");
+                
+                var clasePasadaCss = clase.esPasada ? " pasada" : "";
+                fila.className = "class-row" + clasePasadaCss;
+
+                var btnClase = clase.esCulto ? "square-btn is-culto" : "square-btn";
+
+                var leccionContenido = clase.leccion;
+                if (clase.pagina_pdf) {
+                    leccionContenido = "<a href='Calses de RA_compressed.pdf#page=" + clase.pagina_pdf + "' target='_blank' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
+                }
+
+                fila.innerHTML = 
+                    "<div class='" + btnClase + "' onclick='toggleCulto(\"" + clase.fecha + "\")'></div>" +
+                    "<div class='info-col'>" +
+                        "<div class='date-title'>" + clase.fechaFormato + "</div>" +
+                        "<div class='lesson-text'>" + leccionContenido + "</div>" +
+                    "</div>" +
+                    "<div class='team-badge " + clase.claseCss + "'>" +
+                        clase.equipo +
+                    "</div>";
+                
+                monthBody.appendChild(fila);
+            }
+
+            details.appendChild(summary);
+            details.appendChild(monthBody);
+            container.appendChild(details);
+        }
+    }
+
+    selectEquipo.addEventListener("change", renderizarCalendario);
+    checkboxPasadas.addEventListener("change", renderizarCalendario);
+
+    inicializarEstructura();
+</script>
+</body>
+</html>
