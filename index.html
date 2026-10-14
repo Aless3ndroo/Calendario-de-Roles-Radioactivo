@@ -536,7 +536,7 @@
 
                 var btnClase = clase.esCulto ? "square-btn is-culto" : "square-btn";
 
-              var nombreClase = (clase.pagina_pdf && clase.pagina_pdf <= 36) ? "Semana " + (clase.pagina_pdf + 6) + ": " + clase.leccion : clase.leccion;
+             var nombreClase = clase.leccion;
 var leccionContenido = nombreClase;
 if (clase.pagina_pdf) {
     leccionContenido = "<a href='Calses de RA_compressed.pdf#page=" + clase.pagina_pdf + "' onclick='window.open(this.href, \"_blank\"); return false;' style='color: inherit; text-decoration: underline;'>" + nombreClase + "</a>";
