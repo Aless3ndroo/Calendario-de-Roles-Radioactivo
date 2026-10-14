@@ -536,12 +536,9 @@
 
                 var btnClase = clase.esCulto ? "square-btn is-culto" : "square-btn";
 
-               var leccionContenido = clase.leccion;
+              var leccionContenido = clase.leccion;
 if (clase.pagina_pdf) {
-    // Usar el visor en la nube para forzar la página exacta en iPhone y Android
-    var pdfUrl = "https://aless3ndroo.github.io/Calendario-de-Roles-Radioactivo/Calses%20de%20RA_compressed.pdf";
-    var visorUrl = "https://docs.google.com/viewer?url=" + encodeURIComponent(pdfUrl) + "&embedded=true#page=" + clase.pagina_pdf;
-    leccionContenido = "<a href='" + visorUrl + "' target='_blank' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
+    leccionContenido = "<a href='Calses de RA_compressed.pdf#page=" + clase.pagina_pdf + "' onclick='window.open(this.href, \"_blank\"); return false;' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
 }
 
                 fila.innerHTML = 
