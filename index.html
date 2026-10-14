@@ -538,7 +538,8 @@
 
                 var leccionContenido = clase.leccion;
 if (clase.pagina_pdf) {
-    var enlaceUniversal = "https://drive.google.com/file/d/1sWL_l3hAeDbHmNf6cjJwBroF20n2wZ6F/view?page=" + clase.pagina_pdf;
+    // Usamos el enlace de vista previa directa de Google Drive compatible con móviles
+    var enlaceUniversal = "https://drive.google.com/file/d/1sWL_l3hAeDbHmNf6cjJwBroF20n2wZ6F/preview#page=" + clase.pagina_pdf;
     leccionContenido = "<a href='" + enlaceUniversal + "' target='_blank' style='color: inherit; text-decoration: underline;'>" + clase.leccion + "</a>";
 }
 
